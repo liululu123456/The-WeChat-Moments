@@ -50,8 +50,10 @@ android {
 }
 
 dependencies {
-//    implementation (libs.ui)
-//    implementation (libs.androidx.runtime)
+    implementation(libs.androidx.room.rxjava3)
+    implementation(libs.converter.gson)
+    implementation(libs.retrofit)
+    implementation(libs.converter.scalars)
     implementation(libs.androidx.compose.material3)
     implementation(libs.androidx.compose.material.iconsExtended)
     implementation(libs.androidx.navigation.compose)
