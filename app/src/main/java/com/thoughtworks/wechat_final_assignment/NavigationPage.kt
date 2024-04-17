@@ -1,10 +1,6 @@
 package com.thoughtworks.wechat_final_assignment
 
-import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Divider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
@@ -93,7 +89,10 @@ private fun NavigationHost(
             EmptyComingSoon()
         }
         composable(NavigationRoute.DISCOVER) {
-            DiscoverNavigationContent(selectedItem.value,{})
+            DiscoverNavigationWrapper(
+                selectedDestination = selectedItem.value,
+                onDrawerClicked = { navController.navigate(selectedItem.value)}
+            )
         }
         composable(NavigationRoute.ME) {
             EmptyComingSoon()
@@ -102,36 +101,5 @@ private fun NavigationHost(
 }
 
 
-@Composable
-private fun DiscoverNavigationContent(
-    selectedDestination: String,
-    onDrawerClicked: (String) -> Unit,
-) {
-    Column(
-        modifier = Modifier
-            .background(Color.LightGray)
-            .fillMaxHeight()
-    ) {
 
-        DiscoverNavigationItem(MOMENTS_ITEM,
-            selectedDestination,
-            onDrawerClicked,
-            modifier = Modifier.padding(vertical = 5.dp)
-        )
-        Column() {
-            ENTERTAINMENT_ITEM.forEachIndexed { _, item ->
-                DiscoverNavigationItem(item, selectedDestination, onDrawerClicked)
-                Divider()
-            }
-        }
-        Column(
-            modifier = Modifier.padding(vertical = 5.dp),
-        ) {
-            FUNCTION_ITEM.forEachIndexed { _, item ->
-                DiscoverNavigationItem(item, selectedDestination, onDrawerClicked)
-                Divider()
-            }
-        }
-    }
 
-}
