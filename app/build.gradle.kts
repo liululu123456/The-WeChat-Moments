@@ -50,6 +50,8 @@ android {
 }
 
 dependencies {
+    implementation("androidx.compose.runtime:runtime-livedata")
+    implementation (libs.coil.compose)
     implementation(libs.androidx.room.rxjava3)
     implementation(libs.converter.gson)
     implementation(libs.retrofit)

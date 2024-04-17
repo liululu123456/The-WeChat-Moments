@@ -1,4 +1,4 @@
-package com.thoughtworks.wechat_final_assignment.data
+package com.thoughtworks.wechat_final_assignment.data.repository
 
 import com.thoughtworks.wechat_final_assignment.data.modal.UserInfo
 import io.reactivex.rxjava3.core.Flowable

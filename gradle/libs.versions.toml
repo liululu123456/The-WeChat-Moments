@@ -13,10 +13,11 @@ runtime = "1.6.5"
 ui = "1.6.5"
 converterScalars = "2.9.0"
 roomRuntime = "2.6.1"
-
+coil = "2.6.0"
 
 
 [libraries]
+coil-compose = { module = "io.coil-kt:coil-compose", version.ref = "coil" }
 converter-gson = { module = "com.squareup.retrofit2:converter-gson", version.ref = "converterScalars" }
 retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "converterScalars" }
 converter-scalars = { module = "com.squareup.retrofit2:converter-scalars", version.ref = "converterScalars" }
