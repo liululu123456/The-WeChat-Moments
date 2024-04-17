@@ -91,11 +91,14 @@ private fun NavigationHost(
         composable(NavigationRoute.DISCOVER) {
             DiscoverNavigationWrapper(
                 selectedDestination = selectedItem.value,
-                onDrawerClicked = { navController.navigate(selectedItem.value)}
+                onDrawerClicked = { navController.navigate(DiscoverNavRoute.MOMENTS)}
             )
         }
         composable(NavigationRoute.ME) {
             EmptyComingSoon()
+        }
+        composable(DiscoverNavRoute.MOMENTS) {
+            MomentDisplayPage()
         }
     }
 }
