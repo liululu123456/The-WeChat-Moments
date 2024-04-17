@@ -2,6 +2,9 @@ package com.thoughtworks.wechat_final_assignment.data
 
 import android.content.Context
 import android.widget.Toast
+import com.thoughtworks.wechat_final_assignment.data.modal.UserInfo
+import com.thoughtworks.wechat_final_assignment.data.port.UserInfoApi
+import com.thoughtworks.wechat_final_assignment.data.repository.UserInfoRepository
 import io.reactivex.rxjava3.core.Flowable
 import io.reactivex.rxjava3.schedulers.Schedulers
 import kotlinx.coroutines.Dispatchers
@@ -10,20 +13,20 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.io.IOException
 
-class TweetRepositoryImpl(private val context: Context) : TweetRepository {
-    private val BASE_URL = "https://raw.githubusercontent.com/TW-Android-Junior-Training/android_training_practice/main/json/"
-    override suspend fun fetchTweets(): Flowable<List<Tweet>> = withContext(Dispatchers.IO) {
-        var networkFlowable: Flowable<List<Tweet>>? = null
+class UserInfoRepositoryImpl(private val context: Context): UserInfoRepository {
+    val BASE_URL = "https://xianmobilelab.gitlab.io/moments-data/"
+    override suspend fun fetchUserInfo(): Flowable<UserInfo> = withContext(Dispatchers.IO) {
+        var networkFlowable: Flowable<UserInfo>? = null
         try {
             val response = Retrofit.Builder()
                 .baseUrl(BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .addConverterFactory(GsonConverterFactory.create())
                 .build()
-                .create(TweetApi::class.java)
-                .getTweets()
+                .create(UserInfoApi::class.java)
+                .fetchUserInfo()
                 .body()
-            networkFlowable = Flowable.fromCallable { response!! }
+            networkFlowable = Flowable.just(response!!)
                 .subscribeOn(Schedulers.io())
         } catch (e: IOException) {
             e.printStackTrace()
@@ -31,6 +34,7 @@ class TweetRepositoryImpl(private val context: Context) : TweetRepository {
         }
         return@withContext networkFlowable!!
     }
+
     private suspend fun handleNetworkError(e: IOException) = withContext(Dispatchers.Main) {
         withContext(Dispatchers.Main) {
             println(e.message)
