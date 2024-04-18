@@ -30,15 +30,7 @@ class UserInfoRepositoryImpl(): UserInfoRepository {
                 .subscribeOn(Schedulers.io())
         } catch (e: IOException) {
             e.printStackTrace()
-//            handleNetworkError(e)
         }
         return@withContext networkFlowable!!
     }
-
-//    private suspend fun handleNetworkError(e: IOException) = withContext(Dispatchers.Main) {
-//        withContext(Dispatchers.Main) {
-//            println(e.message)
-//            Toast.makeText(context, "Error: ${e.message}", Toast.LENGTH_LONG).show()
-//        }
-//    }
 }

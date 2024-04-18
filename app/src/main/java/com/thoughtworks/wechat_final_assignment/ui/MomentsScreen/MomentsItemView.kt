@@ -18,6 +18,7 @@ import androidx.compose.foundation.lazy.grid.itemsIndexed
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.MoreHoriz
+import androidx.compose.material3.Divider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -40,21 +41,24 @@ fun TweetItemView(it: Tweet, context: Context) {
         .fillMaxWidth()
         .padding(10.dp)
     ){
-        Row {
-            Box(modifier = Modifier
-                .padding(top = 4.dp, end = 6.dp)
-                .width(45.dp)
-                .height(45.dp)) {
-                AsyncImage(
-                    model = it.sender?.avatar,
-                    contentDescription = null,
-                    contentScale = ContentScale.Crop,
-                    modifier = Modifier
-                        .fillMaxSize()
-                        .clip(RoundedCornerShape(6.dp))
-                )
+        Column {
+            Row {
+                Box(modifier = Modifier
+                    .padding(top = 4.dp, end = 6.dp)
+                    .width(45.dp)
+                    .height(45.dp)) {
+                    AsyncImage(
+                        model = it.sender?.avatar,
+                        contentDescription = null,
+                        contentScale = ContentScale.Crop,
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .clip(RoundedCornerShape(6.dp))
+                    )
+                }
+                TweetContentView(item = it, context = context)
             }
-            TweetContentView(item = it, context = context)
+            Divider(modifier = Modifier.padding(top = 10.dp), color = Color(0xFFEDEDED))
         }
     }
 }

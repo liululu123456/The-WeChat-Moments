@@ -1,7 +1,5 @@
 package com.thoughtworks.wechat_final_assignment.data.repositoryImpl
 
-import android.content.Context
-import android.widget.Toast
 import com.thoughtworks.wechat_final_assignment.data.modal.Tweet
 import com.thoughtworks.wechat_final_assignment.data.port.TweetApi
 import com.thoughtworks.wechat_final_assignment.data.repository.TweetRepository
@@ -29,14 +27,16 @@ class TweetRepositoryImpl() : TweetRepository {
                 .subscribeOn(Schedulers.io())
         } catch (e: IOException) {
             e.printStackTrace()
-//            handleNetworkError(e)
         }
         return@withContext networkFlowable!!
     }
-//    private suspend fun handleNetworkError(e: IOException) = withContext(Dispatchers.Main) {
-//        withContext(Dispatchers.Main) {
-//            println(e.message)
-//            Toast.makeText(context, "Error: ${e.message}", Toast.LENGTH_LONG).show()
-//        }
-//    }
+
+    override suspend fun getTweetPage(nextPage: Int, pageSize: Int): Flowable<List<Tweet>> {
+        return fetchTweets()
+            .map { tweets ->
+                val startIndex = (nextPage - 1) * pageSize
+                val endIndex = minOf(startIndex + pageSize, tweets.size)
+                tweets.subList(startIndex, endIndex)
+            }
+    }
 }

@@ -1,4 +1,4 @@
 fileignoreconfig:
-- filename: app/src/main/res/xml/backup_rules.xml
-  checksum: f301105c8a8ea151b3f18ed0a7c5d6e60eb9f2d07010daa12117b1fbe72e56a0
+- filename: app/src/main/java/com/thoughtworks/wechat_final_assignment/data/TweetDataSource.kt
+  checksum: d65e7bcfb651c11a8d7edc1b1f3d1a27f084e614c331ffcb448c1fa06057a488
 version: ""

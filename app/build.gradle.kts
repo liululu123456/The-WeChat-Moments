@@ -50,6 +50,7 @@ android {
 }
 
 dependencies {
+    implementation(libs.androidx.paging.compose)
     implementation(libs.accompanist.systemuicontroller)
     implementation("androidx.compose.runtime:runtime-livedata")
     implementation (libs.coil.compose)
