@@ -3,19 +3,20 @@ package com.thoughtworks.wechat_final_assignment
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.statusBars
 import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListState
-import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBackIos
@@ -24,6 +25,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
@@ -64,16 +66,33 @@ fun MomentDisplayPage(){
         momentPageViewModel.fetchTweetsData()
 
     }
+
     val systemUiController = rememberSystemUiController()
-    LazyColumn {
-        item { userStates?.let { MomentBackgroundPart(it) } }
-        tweets?.let {
-            items(it.size) { i ->
-                MomentsItemView(it[i],LocalContext.current)
-            }
-        }
+    SideEffect {
+        systemUiController.setSystemBarsColor(
+            color = Color.Transparent,
+            darkIcons = false,
+        )
     }
-    MomentTitleBar(LazyListState(),10.dp,systemUiController)
+    val statusBarHeight = LocalDensity.current.run {
+        WindowInsets.statusBars.getTop(this).toDp()
+    }
+    val scrollState = rememberLazyListState()
+    val context = LocalContext.current
+
+    Box(){
+        LazyColumn(state = scrollState)
+            {
+                item { userStates?.let { MomentBackgroundPart(it) } }
+                tweets?.let {
+                    items(it.size) { i ->
+                        MomentsItemView(it[i],LocalContext.current)
+                    }
+                }
+            }
+        MomentTitleBar(scrollState,statusBarHeight,systemUiController)
+    }
+
 }
 
 
@@ -146,6 +165,7 @@ fun MomentTitleBar(
     statusBarHeight: Dp,
     systemUiController: SystemUiController
 ) {
+    val context = LocalContext.current
 
     val target = LocalDensity.current.run { 250.dp.toPx() }
     val firstVisibleItemIndex = remember { derivedStateOf { scrollState.firstVisibleItemIndex } }
@@ -154,6 +174,7 @@ fun MomentTitleBar(
     val scrollPercent: Float =
         if (firstVisibleItemIndex.value > 0) 1f else (firstVisibleItemScrollOffset.value / target)
     val isTransparent = rememberSaveable { mutableStateOf(true) }
+
     if (scrollPercent > 0) {
         if (isTransparent.value) {
             systemUiController.setSystemBarsColor(
@@ -169,15 +190,16 @@ fun MomentTitleBar(
         )
         isTransparent.value = true
     }
+
     val backgroundColor = Color(0xFFEDEDED)
     Column {
-//        Spacer(
-//            modifier = Modifier
-//                .fillMaxWidth()
-//                .padding(top = statusBarHeight)
-//                .alpha(scrollPercent)
-//                .background(backgroundColor)
-//        )
+        Spacer(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(top = statusBarHeight)
+                .alpha(scrollPercent)
+                .background(backgroundColor)
+        )
         Box(modifier = Modifier.height(44.dp)) {
             Spacer(
                 modifier = Modifier
