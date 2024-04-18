@@ -8,6 +8,7 @@ import androidx.compose.material3.NavigationBarItemDefaults
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
@@ -24,21 +25,24 @@ import androidx.navigation.compose.rememberNavController
 @Preview
 fun NavigationPage() {
     val navController = rememberNavController()
+    val isBottomBarVisible = remember { mutableStateOf(true) }
     val selectedTab = remember { mutableStateOf(NavigationRoute.DISCOVER) }
     Scaffold(
         bottomBar = {
-            BottomNavigateWrapper(
-                selectedDestination = selectedTab.value,
-                onDrawerClicked = {
-                        route ->
-                    selectedTab.value = route
-                    navController.navigate(route)
-                }
-            )
+            if(isBottomBarVisible.value) {
+                BottomNavigateWrapper(
+                    selectedDestination = selectedTab.value,
+                    onDrawerClicked = { route ->
+                        selectedTab.value = route
+                        navController.navigate(route)
+                    }
+                )
+            }
         },
     ) {
             innerPadding ->
         NavigationHost(
+            isBottomBarVisible = isBottomBarVisible,
             navController = navController,
             modifier = Modifier.padding(innerPadding),
         )
@@ -72,6 +76,7 @@ fun BottomNavigateWrapper(
 
 @Composable
 private fun NavigationHost(
+    isBottomBarVisible: MutableState<Boolean>,
     navController: NavHostController,
     modifier: Modifier = Modifier,
 ) {
@@ -98,6 +103,7 @@ private fun NavigationHost(
             EmptyComingSoon()
         }
         composable(DiscoverNavRoute.MOMENTS) {
+            isBottomBarVisible.value = false
             MomentDisplayPage()
         }
     }

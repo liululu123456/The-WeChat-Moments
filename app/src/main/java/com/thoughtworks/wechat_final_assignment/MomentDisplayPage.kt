@@ -78,9 +78,8 @@ fun MomentDisplayPage(){
         WindowInsets.statusBars.getTop(this).toDp()
     }
     val scrollState = rememberLazyListState()
-    val context = LocalContext.current
 
-    Box(){
+    Box{
         LazyColumn(state = scrollState)
             {
                 item { userStates?.let { MomentBackgroundPart(it) } }
@@ -165,8 +164,6 @@ fun MomentTitleBar(
     statusBarHeight: Dp,
     systemUiController: SystemUiController
 ) {
-    val context = LocalContext.current
-
     val target = LocalDensity.current.run { 250.dp.toPx() }
     val firstVisibleItemIndex = remember { derivedStateOf { scrollState.firstVisibleItemIndex } }
     val firstVisibleItemScrollOffset =
