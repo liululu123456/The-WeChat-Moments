@@ -1,4 +1,4 @@
-package com.thoughtworks.wechat_final_assignment
+package com.thoughtworks.wechat_final_assignment.ui.MainScreen
 
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Icon
@@ -20,10 +20,13 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.thoughtworks.wechat_final_assignment.ui.emptyScreen.EmptyComingSoon
+import com.thoughtworks.wechat_final_assignment.ui.MomentsScreen.MomentDisplayPage
+import com.thoughtworks.wechat_final_assignment.R
 
 @Composable
 @Preview
-fun NavigationPage() {
+fun MainScreen() {
     val navController = rememberNavController()
     val isBottomBarVisible = remember { mutableStateOf(true) }
     val selectedTab = remember { mutableStateOf(NavigationRoute.DISCOVER) }
@@ -40,7 +43,7 @@ fun NavigationPage() {
             }
         },
     ) {
-            innerPadding ->
+        innerPadding ->
         NavigationHost(
             isBottomBarVisible = isBottomBarVisible,
             navController = navController,

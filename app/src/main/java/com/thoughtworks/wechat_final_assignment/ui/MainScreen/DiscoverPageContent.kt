@@ -1,4 +1,4 @@
-package com.thoughtworks.wechat_final_assignment
+package com.thoughtworks.wechat_final_assignment.ui.MainScreen
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -22,6 +22,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.unit.dp
+import com.thoughtworks.wechat_final_assignment.R
 
 @Composable
 fun DiscoverNavigationItem(
@@ -75,7 +76,8 @@ fun DiscoverNavigationWrapper(
         Text(text = "Discover",
             modifier = Modifier.align(Alignment.CenterHorizontally)
                 .padding(vertical = 8.dp))
-        DiscoverNavigationItem(MOMENTS_ITEM,
+        DiscoverNavigationItem(
+            MOMENTS_ITEM,
             selectedDestination,
             onDrawerClicked,
             modifier = Modifier.padding(vertical = 5.dp)

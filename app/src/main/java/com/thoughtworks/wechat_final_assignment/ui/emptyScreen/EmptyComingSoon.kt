@@ -1,4 +1,4 @@
-package com.thoughtworks.wechat_final_assignment
+package com.thoughtworks.wechat_final_assignment.ui.emptyScreen
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.fillMaxSize

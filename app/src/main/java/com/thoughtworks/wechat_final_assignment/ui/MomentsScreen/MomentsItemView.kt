@@ -1,4 +1,4 @@
-package com.thoughtworks.wechat_final_assignment
+package com.thoughtworks.wechat_final_assignment.ui.MomentsScreen
 
 import android.content.Context
 import androidx.compose.foundation.background
@@ -35,7 +35,7 @@ import coil.compose.AsyncImage
 import com.thoughtworks.wechat_final_assignment.data.modal.Tweet
 
 @Composable
-fun MomentsItemView(it: Tweet, context: Context) {
+fun TweetItemView(it: Tweet, context: Context) {
     Box(modifier = Modifier
         .fillMaxWidth()
         .padding(10.dp)

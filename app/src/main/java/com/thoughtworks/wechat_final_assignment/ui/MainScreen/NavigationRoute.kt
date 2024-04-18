@@ -1,4 +1,4 @@
-package com.thoughtworks.wechat_final_assignment
+package com.thoughtworks.wechat_final_assignment.ui.MainScreen
 
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AllInclusive
@@ -15,6 +15,7 @@ import androidx.compose.material.icons.outlined.Contacts
 import androidx.compose.material.icons.outlined.Explore
 import androidx.compose.material.icons.outlined.Person
 import androidx.compose.ui.graphics.vector.ImageVector
+import com.thoughtworks.wechat_final_assignment.R
 
 object NavigationRoute {
     const val CHATS = "Chats"
