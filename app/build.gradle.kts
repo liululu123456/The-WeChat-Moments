@@ -50,6 +50,7 @@ android {
 }
 
 dependencies {
+    implementation(libs.accompanist.systemuicontroller)
     implementation("androidx.compose.runtime:runtime-livedata")
     implementation (libs.coil.compose)
     implementation(libs.androidx.room.rxjava3)
